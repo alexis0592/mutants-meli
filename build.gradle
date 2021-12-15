@@ -4,6 +4,8 @@ plugins {
 	id 'java'
 }
 
+apply plugin: 'jacoco'
+
 group = 'com.meli.challenge'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -26,6 +28,38 @@ dependencies {
 	annotationProcessor "org.projectlombok:lombok"
 }
 
+jacoco {
+	toolVersion = "0.8.5"
+}
+
+jacocoTestReport {
+
+	reports {
+		xml.enabled true
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+		xml.destination file("${buildDir}/report.xml")
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: ['com/meli/challenge/mutantchallenge/model/**',
+							'com/meli/challenge/mutantchallenge/service/model/dto/**',
+							'com/meli/challenge/mutantchallenge/MutantChallengeApplication**'
+					])
+		}))
+	}
+}
+
 test {
 	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+	finalizedBy jacocoTestReport
+	jacoco {
+		destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+		classDumpDir = file("$buildDir/jacoco/classpathdumps")
+	}
 }

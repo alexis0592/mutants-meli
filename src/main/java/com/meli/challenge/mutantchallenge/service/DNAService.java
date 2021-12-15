@@ -1,5 +1,8 @@
 package com.meli.challenge.mutantchallenge.service;
 
+import com.meli.challenge.mutantchallenge.model.Mutant;
+import com.meli.challenge.mutantchallenge.repository.IMutantRepository;
+import com.meli.challenge.mutantchallenge.service.model.dto.MutantStatDTO;
 import com.meli.challenge.mutantchallenge.service.processor.DiagonalSequenceProcess;
 import com.meli.challenge.mutantchallenge.service.processor.HorizontalSequenceProcess;
 import com.meli.challenge.mutantchallenge.service.processor.MutantProcess;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class DNAService implements IDNAService{
@@ -24,6 +28,9 @@ public class DNAService implements IDNAService{
     @Autowired
     private DiagonalSequenceProcess diagonalProcess;
 
+    @Autowired
+    private IMutantRepository mutantRepository;
+
     private final String[] allowedSequences = {"AAAA", "TTTT", "CCCC", "GGGG"};
 
     public boolean isMutant(String[] dna) throws InvalidDnaSequenceException {
@@ -33,17 +40,39 @@ public class DNAService implements IDNAService{
         }
 
         if(dna.length <= 3){
+            saveMutant(dna, false);
             return false;
         }
 
+        boolean isMutant;
         int occurrences = 0;
         for(String sequence: allowedSequences){
             occurrences += horizontalProcess.processDnaSequence(dna, sequence);
             occurrences += verticalProcess.processDnaSequence(dna, sequence);
             occurrences += diagonalProcess.processDnaSequence(dna, sequence);
         }
+        isMutant = occurrences > Constants.MINIMUN_SEQUENCE_OCCURRENCE;
 
-        return occurrences > Constants.MINIMUN_SEQUENCE_OCCURRENCE;
+        saveMutant(dna, isMutant);
+
+        return isMutant;
+    }
+
+    public MutantStatDTO getStats(){
+        List<Mutant> mutants = mutantRepository.getAll();
+
+        double mutantsCount = (double)mutants.stream()
+                .filter(Mutant::isMutant)
+                .count();
+        double humansCount = (double)mutants.size() - mutantsCount;
+
+        double ratio = (humansCount == 0) ? 0.0 : mutantsCount / humansCount;
+
+        return MutantStatDTO.builder()
+                .countHumanDna((int)humansCount)
+                .countMutantDna((int)mutantsCount)
+                .ratio(ratio)
+                .build();
     }
 
     private boolean isValidSequence(String[] dna){
@@ -52,24 +81,14 @@ public class DNAService implements IDNAService{
 
     }
 
-//    public boolean findHorizontalSequence(String sequence){
-//        return countConsecutiveCharOccurrence(sequence.toCharArray());
-//    }
-//
-//    private boolean countConsecutiveCharOccurrence(char[] nitrogenBaseChars) {
-//        int count;
-//        for(int i = 0; i < nitrogenBaseChars.length; i++){
-//            char aux = nitrogenBaseChars[i];
-//            count = 1;
-//            for (int j = i + 1; j < nitrogenBaseChars.length; j++){
-//                if(aux == nitrogenBaseChars[j]){
-//                    count++;
-//                }else {
-//                    break;
-//                }
-//            }
-//            if(count >= 4) return true;
-//        }
-//        return false;
-//    }
+    private void saveMutant(String[] dna, boolean isMutant){
+        mutantRepository.save(new Mutant().builder()
+                .isMutant(isMutant)
+                .dna(Utils.arraytoPlainString(dna))
+                .build()
+        );
+    }
+
+
+
 }

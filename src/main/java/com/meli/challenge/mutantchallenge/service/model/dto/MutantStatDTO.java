@@ -2,13 +2,15 @@ package com.meli.challenge.mutantchallenge.service.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MutantStat {
+@Builder
+public class MutantStatDTO {
 
     @JsonProperty("count_mutant_dna")
     private int countMutantDna;
@@ -16,6 +18,6 @@ public class MutantStat {
     @JsonProperty("count_human_dna")
     private int countHumanDna;
 
-    private long ratio;
+    private double ratio;
 
 }

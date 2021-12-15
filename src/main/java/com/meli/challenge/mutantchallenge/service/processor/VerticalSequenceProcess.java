@@ -17,6 +17,9 @@ public class VerticalSequenceProcess implements MutantProcess {
             if(dnaToAnalyze.indexOf(sequence) > -1){
                 result++;
             }
+            if(result == 2){
+                return result;
+            }
         }
         return result;
     }
