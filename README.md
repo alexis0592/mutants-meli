@@ -108,5 +108,17 @@ Se realizaron pruebas unitarias con Junit y reporte de cobertura con Jacoco con 
 
 ![image](https://user-images.githubusercontent.com/7538150/146304431-98a3d271-a792-4f0a-ba13-b59e0ed93905.png)
 
+#### Performance
+Se realizan pruebas locales al servicio con jmeter (proyecto se puede encontrar en la carpeta performance-test) y se realiza un monitoreo con la herramienta VisualVM para determinar los recursos que necesitara el contenedor para ser desplegado en nube.
+Teniendo en cuenta las limitaciones que se tienen con la base de datos de Dynamos antes de que pasar el limite de request se encuentra lo siguiente:
+
+Se logra alcanzar en promedio 230 TPS con picos de 300 para una instancia
+![image](https://user-images.githubusercontent.com/7538150/146306300-d529e389-e8c8-4592-8341-091eb698d496.png)
+
+Con un consumo de memoria de 200MB y 40% de uso de CPU
+![image](https://user-images.githubusercontent.com/7538150/146306370-acbe4aec-890e-4412-81c0-ed925744764f.png)
+
+![image](https://user-images.githubusercontent.com/7538150/146306380-d2bd7775-a10e-45bb-8068-eb25ec7213be.png)
+
 
 
