@@ -1,4 +1,9 @@
 package com.meli.challenge.mutantchallenge.config;
 
-public class DynamoDBConfig {
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+
+public interface DynamoDBConfig {
+     DynamoDbClient amazonDynamoDb();
+     DynamoDbEnhancedClient dynamoDbEnhancedClient();
 }

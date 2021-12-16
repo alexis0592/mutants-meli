@@ -1,6 +1,7 @@
 package com.meli.challenge.mutantchallenge.repository.impl;
 
 import com.meli.challenge.mutantchallenge.config.DynamoDBConfig;
+import com.meli.challenge.mutantchallenge.config.DynamoDBConfigLocal;
 import com.meli.challenge.mutantchallenge.model.Mutant;
 import com.meli.challenge.mutantchallenge.repository.IMutantRepository;
 import org.slf4j.Logger;

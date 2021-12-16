@@ -1,10 +1,12 @@
 package com.meli.challenge.mutantchallenge.service.processor;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 @Component
+@Qualifier("DiagonalSequenceProcess")
 public class DiagonalSequenceProcess implements MutantProcess {
 
     @Override

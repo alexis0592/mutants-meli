@@ -12,39 +12,24 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import java.net.URI;
 
 @Configuration
-public class DynamoDBConfig {
+@Profile("local")
+public class DynamoDBConfigLocal implements DynamoDBConfig {
 
-
-    @Profile("local")
+    @Override
     @Bean
-    public DynamoDbClient amazonDynamoDbLocal(){
+    public DynamoDbClient amazonDynamoDb(){
        return DynamoDbClient.builder()
                .region(Region.US_EAST_1)
                .endpointOverride(URI.create("http://localhost:4566"))
                .build();
    }
 
-    @Profile("local")
-    @Bean
-    public DynamoDbEnhancedClient dynamoDbEnhancedClientLocal(){
-        return DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(amazonDynamoDbLocal())
-                .build();
-    }
-
-    @Profile("!local")
-    @Bean
-    public DynamoDbClient amazonDynamoDb(){
-        return DynamoDbClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
-    }
-
-    @Profile("!local")
+    @Override
     @Bean
     public DynamoDbEnhancedClient dynamoDbEnhancedClient(){
         return DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(amazonDynamoDb())
                 .build();
     }
+
 }

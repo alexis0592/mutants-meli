@@ -5,7 +5,6 @@ import com.meli.challenge.mutantchallenge.repository.IMutantRepository;
 import com.meli.challenge.mutantchallenge.service.model.dto.MutantStatDTO;
 import com.meli.challenge.mutantchallenge.service.processor.DiagonalSequenceProcess;
 import com.meli.challenge.mutantchallenge.service.processor.HorizontalSequenceProcess;
-import com.meli.challenge.mutantchallenge.service.processor.MutantProcess;
 import com.meli.challenge.mutantchallenge.service.processor.VerticalSequenceProcess;
 import com.meli.challenge.mutantchallenge.utils.Constants;
 import com.meli.challenge.mutantchallenge.utils.Utils;
@@ -31,8 +30,6 @@ public class DNAService implements IDNAService{
     @Autowired
     private IMutantRepository mutantRepository;
 
-    private final String[] allowedSequences = {"AAAA", "TTTT", "CCCC", "GGGG"};
-
     public boolean isMutant(String[] dna) throws InvalidDnaSequenceException {
 
         if(isValidSequence(dna)){
@@ -46,7 +43,7 @@ public class DNAService implements IDNAService{
 
         boolean isMutant;
         int occurrences = 0;
-        for(String sequence: allowedSequences){
+        for(String sequence: Constants.VALID_SEQUENCES){
             occurrences += horizontalProcess.processDnaSequence(dna, sequence);
             occurrences += verticalProcess.processDnaSequence(dna, sequence);
             occurrences += diagonalProcess.processDnaSequence(dna, sequence);
@@ -88,7 +85,4 @@ public class DNAService implements IDNAService{
                 .build()
         );
     }
-
-
-
 }

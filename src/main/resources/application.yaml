@@ -1,14 +1,9 @@
 
+spring:
+  profiles:
+    active: ${MELI_ENV}
 server:
   port: 8080
-
-config:
-  aws:
-    region: us-east-1
-    dynamodb:
-      url: http://127.0.0.1:4566
-      access-key: localstack
-      secret-key: localstack
 
 springdoc:
   api-docs:
