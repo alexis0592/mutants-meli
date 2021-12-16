@@ -2,7 +2,26 @@
 Mutants Repo for Meli Challenge
 
 # Hosting
+Se puede encontrar el proyecto alojado en un ECS de AWS en la siguiente dirección:
 
+```
+curl --location --request POST 'http://54.87.45.150:8080/mutant' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"dna": [
+        "ATGCGA",
+        "CTGTGC",
+        "ATATTT",
+        "AGAAGG",
+        "TCCCTA",
+        "TCACTG"
+    ]
+}'
+```
+
+```
+curl --location --request GET 'http://54.87.45.150:8080/stats'
+```
 
 # Enunciado
 Magneto quiere reclutar la mayor cantidad de mutantes para poder luchar
@@ -116,7 +135,6 @@ Se logra alcanzar en promedio 230 TPS con picos de 300 para una instancia
 ![image](https://user-images.githubusercontent.com/7538150/146306300-d529e389-e8c8-4592-8341-091eb698d496.png)
 
 Con un consumo de memoria de 200MB y 40% de uso de CPU
-![image](https://user-images.githubusercontent.com/7538150/146306370-acbe4aec-890e-4412-81c0-ed925744764f.png)
 
 ![image](https://user-images.githubusercontent.com/7538150/146306380-d2bd7775-a10e-45bb-8068-eb25ec7213be.png)
 
