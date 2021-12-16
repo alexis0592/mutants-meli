@@ -2,7 +2,7 @@
 
 # -- > Create DynamoDb Table
 echo Creating  DynamoDb \'Mutants\' table ...
-echo $(awslocal dynamodb create-table --cli-input-json '{"TableName":"Mutants", "KeySchema":[{"AttributeName":"id","KeyType":"HASH"}], "AttributeDefinitions":[{"AttributeName":"id","AttributeType":"S"}],"BillingMode":"PAY_PER_REQUEST"}')
+echo $(awslocal dynamodb create-table --cli-input-json '{"TableName":"mutants", "KeySchema":[{"AttributeName":"dna","KeyType":"HASH"}], "AttributeDefinitions":[{"AttributeName":"dna","AttributeType":"S"}],"BillingMode":"PAY_PER_REQUEST"}')
 
 # --> List DynamoDb Tables
 echo Listing tables ...
