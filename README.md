@@ -62,6 +62,9 @@ del producto.
 - DynamoDB
 - ECS
 - ECR
+- Intellij
+- Junit
+- Jacoco 
 ----
 #### Nivel 1.
 Para el algoritmo se realiza la búsqueda de los patrones de ADN `AAAA` `TTTT` `CCCC` `GGGG` en las cadenas de texto de ADN formado
@@ -74,14 +77,36 @@ Por cada cadena de ADN se realiza una búsqueda en cada dirección, por lo que e
 Para la creación de la API REST se crean un proyecto springboot separado endpoint `POST /mutant`, en springboot el cuál verifica si una cadena ingresada es mutante o no, para lo cuál retorna `200 ok `
 si es mutante y `403 Forbidden` si no lo es.
 
+![image](https://user-images.githubusercontent.com/7538150/146302028-562f26ca-9a7a-44dc-93c9-21be8452dd11.png)
+
+![image](https://user-images.githubusercontent.com/7538150/146302078-4a9600ed-633c-475e-8086-dff7fc88ff52.png)
 
 
-Se agrega documentación de la API, la cual se puede encontrar en http://54.87.45.150:8080/swagger-ui.html
+Se agrega documentación de la API, la cual se puede encontrar en http://localhost:8080/swagger-ui.html
 
 #### Nivel 3
 Para almacenar los ADN verificados, se hace uso de una Base de Datos No Relacional DynamoDB cuyo partitionKey es el ADN verificado, ya que se debe almacenar un registro por ADN.
 Se expone un endpoint adicional `GET /stats` el cual retorna un json con las estadisticas de las verificaciones de ADN
 
+![image](https://user-images.githubusercontent.com/7538150/146302107-3b57ffdd-bba7-4dbe-a6b6-150cce46be5b.png)
+
 El diagrama de infraestructura es la siguiente:
+![image](https://user-images.githubusercontent.com/7538150/146302738-ce65fcf1-3db8-468a-aec9-42d3572bba33.png)
+
+
+## Entregables
+#### Ejecución del proyecto local
+- Clonar el repositorio 
+  `git clone https://github.com/alexis0592/mutants-meli.git`
+- Abrir el proyecto en el IDE de preferencia(Se recomienda Intellij)
+- Actualizar dependencias de Gradle
+
+#### Pruebas unitarias
+Se realizaron pruebas unitarias con Junit y reporte de cobertura con Jacoco con un 87% de cobertura
+
+![image](https://user-images.githubusercontent.com/7538150/146304468-3cf966d3-48e4-41b9-932b-bc207e868a31.png)
+
+![image](https://user-images.githubusercontent.com/7538150/146304431-98a3d271-a792-4f0a-ba13-b59e0ed93905.png)
+
 
 
