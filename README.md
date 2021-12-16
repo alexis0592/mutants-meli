@@ -84,6 +84,7 @@ del producto.
 - Intellij
 - Junit
 - Jacoco 
+- localStack
 ----
 #### Nivel 1.
 Para el algoritmo se realiza la búsqueda de los patrones de ADN `AAAA` `TTTT` `CCCC` `GGGG` en las cadenas de texto de ADN formado
@@ -119,6 +120,9 @@ El diagrama de infraestructura es la siguiente:
   `git clone https://github.com/alexis0592/mutants-meli.git`
 - Abrir el proyecto en el IDE de preferencia(Se recomienda Intellij)
 - Actualizar dependencias de Gradle
+- ubicarse en la carpeta scripts y ejecutar el comando
+ `docker-compose -f docker-componse-dynamodb.yaml up`
+- Crear una variable de entorno `MELI_ENV=local` 
 
 #### Pruebas unitarias
 Se realizaron pruebas unitarias con Junit y reporte de cobertura con Jacoco con un 87% de cobertura
