@@ -5,7 +5,7 @@ Mutants Repo for Meli Challenge
 Se puede encontrar el proyecto alojado en un ECS de AWS en la siguiente dirección:
 
 ```
-curl --location --request POST 'http://3.208.25.62:8080/mutant' \
+curl --location --request POST 'http://107.20.59.229:8080/mutant' \
 --header 'Content-Type: application/json' \
 --data-raw '{
 "dna": [
@@ -20,7 +20,7 @@ curl --location --request POST 'http://3.208.25.62:8080/mutant' \
 ```
 
 ```
-curl --location --request GET 'http://3.208.25.62:8080/stats'
+curl --location --request GET 'http://107.20.59.229:8080/stats'
 ```
 
 # Enunciado
